@@ -1,0 +1,26 @@
+{
+  "name": "inhoolife-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Hudi",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "google-images": "^2.1.0",
+    "graphql-yoga": "^1.14.12",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.2.5",
+    "request": "^2.87.0"
+  },
+  "scripts": {
+    "start": "pm2 start --interpreter babel-node index.js --watch --name inhoolife",
+    "stop": "pm2 stop inhoolife"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1"
+  }
+}
