@@ -1,0 +1,71 @@
+type Menu {
+  name: String
+  price: Int
+}
+
+input MenuInput {
+  name: String
+  price: Int
+}
+
+type Like {
+  user: String
+}
+
+type Comment {
+  user_id: String
+  nickname: String
+  body: String
+  isCreatedAt: String
+}
+
+type Restaurant {
+  id: String
+  name: String
+  address: String
+  menu: [Menu]
+  likes: [Like]
+  comments: [Comment]
+  tags: [String]
+}
+
+type Tag {
+  name: String
+  type: String
+}
+
+type User {
+  _id: String
+  id: String
+  nickname: String
+  password: String
+  like_restaurants: [String]
+  isCreatedAt: String
+}
+
+type Query {
+  restaurants(tags: [String]): [Restaurant]
+  restaurant(id: String): Restaurant
+  majorTags: [Tag]
+  minorTags: [Tag]
+  user(id: String): User
+  login(id: String!, password: String!): String
+  verifyToken(token: String!): String
+}
+
+type Mutation {
+  addRestaurant(
+    name: String!
+    address: String!
+    menu: [MenuInput]!
+    tags: [String]!
+  ): Restaurant
+  addTag(name: String!, type: String!): Tag
+  removeTag(name: String!): Tag
+  writeCommentToRestaurant(
+    restaurant_id: String!
+    user_id: String!
+    body: String!
+  ): Comment
+  localRegister(id: String!, nickname: String!, password: String!): User
+}
