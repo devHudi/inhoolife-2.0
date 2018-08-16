@@ -8,10 +8,6 @@ input MenuInput {
   price: Int
 }
 
-type Like {
-  user: String
-}
-
 type Comment {
   user_id: String
   nickname: String
@@ -24,7 +20,7 @@ type Restaurant {
   name: String
   address: String
   menu: [Menu]
-  likes: [Like]
+  likes: [String]
   comments: [Comment]
   tags: [String]
 }
@@ -68,4 +64,6 @@ type Mutation {
     body: String!
   ): Comment
   localRegister(id: String!, nickname: String!, password: String!): User
+  addLikeRestaurant(id: String!, restaurant_id: String!): [String]
+  removeLikeRestaurant(id: String!, restaurant_id: String!): [String]
 }
