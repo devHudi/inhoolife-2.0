@@ -59,6 +59,40 @@ const resolvers = {
           resolve(User.localRegister(id, nickname, password));
         });
       });
+    },
+    addLikeRestaurant: (_, { id, restaurant_id }) => {
+      return new Promise((resolve, reject) => {
+        User.findOneById(id).then(user => {
+          const exist = user.like_restaurants.indexOf(restaurant_id) !== -1;
+          if (!exist) {
+            user.addLikeRestaurant(restaurant_id);
+            Restaurant.findById(restaurant_id).then(restaurant => {
+              restaurant.addLikeUser(id);
+            });
+
+            resolve(user.like_restaurants);
+          } else {
+            reject("exist restaurant");
+          }
+        });
+      });
+    },
+    removeLikeRestaurant: (_, { id, restaurant_id }) => {
+      return new Promise((resolve, reject) => {
+        User.findOneById(id).then(user => {
+          const exist = user.like_restaurants.indexOf(restaurant_id) !== -1;
+          if (exist) {
+            user.removeLikeRestaurant(restaurant_id);
+            Restaurant.findById(restaurant_id).then(restaurant => {
+              restaurant.removeLikeUser(id);
+            });
+
+            resolve(user.like_restaurants);
+          } else {
+            reject("not exist restaurant");
+          }
+        });
+      });
     }
   }
 };
