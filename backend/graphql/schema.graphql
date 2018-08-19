@@ -55,9 +55,20 @@ type Mutation {
     address: String!
     menu: [MenuInput]!
     tags: [String]!
+    url: String!
   ): Restaurant
+  updateRestaurant(
+    id: String!
+    name: String!
+    address: String!
+    menu: [MenuInput]!
+    tags: [String]!
+    url: String!
+  ): Restaurant
+  removeRestaurant(id: String!): Restaurant
   addTag(name: String!, type: String!): Tag
   removeTag(name: String!): Tag
+  saveTags(tags: [String]!, type: String!): [String]
   writeCommentToRestaurant(
     restaurant_id: String!
     user_id: String!
