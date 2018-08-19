@@ -1,7 +1,21 @@
+import fs from "fs";
+import request from "request";
 import Restaurant from "../models/Restaurant";
 import Tag from "../models/Tag";
 import User from "../models/User";
 import { verifyToken } from "../lib/token";
+
+function downloadImage(url, filename) {
+  return new Promise((resolve, reject) => {
+    request.head(url, function(err, res, body) {
+      request(url)
+        .pipe(fs.createWriteStream(`./public/images/${filename}.jpg`))
+        .on("close", () => {
+          resolve();
+        });
+    });
+  });
+}
 
 const resolvers = {
   Query: {
@@ -34,10 +48,37 @@ const resolvers = {
     }
   },
   Mutation: {
-    addRestaurant: (_, { name, address, menu, tags }) =>
-      Restaurant.add(name, address, menu, tags),
+    addRestaurant: (_, { name, address, menu, tags, url }) => {
+      return new Promise((resolve, reject) => {
+        Restaurant.add(name, address, menu, tags).then(restaurant => {
+          const imageFilename = restaurant._id;
+          downloadImage(url, imageFilename).then(() => {
+            resolve(restaurant);
+          });
+        });
+      });
+    },
+    updateRestaurant: (_, { id, name, address, menu, tags, url }) => {
+      return new Promise((resolve, reject) => {
+        Restaurant.findById(id).then(restaurant => {
+          restaurant.update(name, address, menu, tags);
+          if (url) {
+            downloadImage(url, id).then(() => {
+              resolve(restaurant);
+            });
+          } else resolve(restaurant);
+        });
+      });
+    },
+    removeRestaurant: (_, { id }) => Restaurant.removeById(id),
     addTag: (_, { name, type }) => Tag.add(name, type),
     removeTag: (_, { name }) => Tag.remove(name),
+    saveTags: (_, { tags, type }) => {
+      return new Promise((resolve, reject) => {
+        Tag.clearAndUpdate(tags, type);
+        resolve(tags);
+      });
+    },
     writeCommentToRestaurant: (_, { restaurant_id, user_id, body }) => {
       return new Promise((resolve, reject) => {
         Restaurant.findById(restaurant_id).then(restaurant => {
