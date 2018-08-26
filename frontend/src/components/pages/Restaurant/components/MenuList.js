@@ -72,7 +72,7 @@ const MenuList = ({ menu }) => {
           </Menu>
         ))}
         <SuggestMenu>
-          <Link to="/menu-suggest">잘못된 메뉴/새로운 메뉴 제안하기</Link>
+          <Link to="/suggest">잘못된 메뉴/새로운 메뉴 제안하기</Link>
         </SuggestMenu>
       </MenuListWrapper>
     );
