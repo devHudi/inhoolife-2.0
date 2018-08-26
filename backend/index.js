@@ -24,8 +24,6 @@ GQLServer.start(options, () =>
 app.use(express.static("public"));
 
 const upload = multer({ dest: "uploads/" });
-app.post("/upload", upload.single("img"), (req, res) => {
-  console.log(req.file);
-});
+app.post("/upload", upload.single("img"), (req, res) => {});
 
 app.listen(4001, () => console.log("Express server running on 4001 port"));
