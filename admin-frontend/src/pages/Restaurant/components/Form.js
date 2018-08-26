@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Input, Label, Button } from "../../../commons";
 
 const Form = ({
+  id,
   name,
   tags,
   menu,
@@ -17,10 +18,12 @@ const Form = ({
   onConfirmClick,
   onRemoveClick,
   onAddRestaurant,
-  onRemoveRestaurant
+  onRemoveRestaurant,
+  onModifyRestaurant
 }) => {
   return (
     <Fragment>
+      {isNew ? "" : <Label> ID : {id}</Label>}
       <Label> 식당명 </Label>
       <Input value={name} onChange={onNameChange} placeholder="식당 이름" />
 
@@ -67,15 +70,27 @@ const Form = ({
             삭제
           </Button>
         )}
-        <Button
-          onClick={() => {
-            onConfirmClick().then(restaurant => {
-              onAddRestaurant(restaurant);
-            });
-          }}
-        >
-          {isNew ? "추가" : "수정"}
-        </Button>
+        {isNew ? (
+          <Button
+            onClick={() => {
+              onConfirmClick().then(restaurant => {
+                onAddRestaurant(restaurant);
+              });
+            }}
+          >
+            추가
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              onConfirmClick().then(() => {
+                onModifyRestaurant();
+              });
+            }}
+          >
+            수정
+          </Button>
+        )}
       </AlignRight>
     </Fragment>
   );

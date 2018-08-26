@@ -18,7 +18,7 @@ class FormContainer extends Component {
       tags: "",
       menu: "",
       address: "",
-      url: ""
+      url: "http://placehold.it/500x500?text=no_image"
     };
   }
 
@@ -209,10 +209,15 @@ class FormContainer extends Component {
 
   render() {
     const { restaurant, name, tags, menu, address, url } = this.state;
-    const { onAddRestaurant, onRemoveRestaurant } = this.props;
+    const {
+      onAddRestaurant,
+      onRemoveRestaurant,
+      onModifyRestaurant
+    } = this.props;
 
     return (
       <Form
+        id={restaurant}
         name={name}
         tags={tags}
         menu={menu}
@@ -228,6 +233,7 @@ class FormContainer extends Component {
         onRemoveClick={this.handleRemoveClick}
         onAddRestaurant={onAddRestaurant}
         onRemoveRestaurant={onRemoveRestaurant}
+        onModifyRestaurant={onModifyRestaurant}
       />
     );
   }

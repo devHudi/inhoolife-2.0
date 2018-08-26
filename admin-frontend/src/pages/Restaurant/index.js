@@ -21,17 +21,21 @@ class Restaurants extends Component {
   };
 
   handleAddRestaurant = restaurant => {
-    this.list.current.addItem(restaurant);
+    this.list.current.fetchList();
     this.form.current.clearForm();
   };
 
   handleRemoveRestaurant = id => {
-    this.list.current.removeItem(id);
+    this.list.current.fetchList();
     this.form.current.clearForm();
   };
 
   handleNewRestaurant = () => {
     this.form.current.clearForm();
+  };
+
+  handleModifyRestaurant = () => {
+    this.list.current.fetchList();
   };
 
   render() {
@@ -55,6 +59,7 @@ class Restaurants extends Component {
               restaurant={restaurant}
               onAddRestaurant={this.handleAddRestaurant}
               onRemoveRestaurant={this.handleRemoveRestaurant}
+              onModifyRestaurant={this.handleModifyRestaurant}
             />
           }
         />

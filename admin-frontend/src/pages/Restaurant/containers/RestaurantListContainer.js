@@ -23,8 +23,15 @@ class RestaurantListContainer extends Component {
   };
 
   addItem = data => {
+    const newRestaurant = {
+      id: data.id,
+      name: data.name,
+      __typename: "Restaurant",
+      "Symbol(id)": "Restaurant:" + data.id
+    };
+
     this.setState({
-      restaurants: [...this.state.restaurants, data]
+      restaurants: [...this.state.restaurants, newRestaurant]
     });
   };
 
