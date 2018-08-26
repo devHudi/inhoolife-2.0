@@ -1,9 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Query } from "react-apollo";
-import {
-  RESTAURANT_HEADER,
-  LIKE_RESTAURANTS
-} from "../../../../apollo/queries";
+import { RESTAURANT_HEADER } from "../../../../apollo/queries";
 import { Header, HeaderSkeleton } from "../components";
 
 const HOST = process.env.REACT_APP_BACKEND_HOST;

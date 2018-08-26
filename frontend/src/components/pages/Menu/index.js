@@ -1,13 +1,16 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
   faGithubSquare,
   faWordpress
 } from "@fortawesome/free-brands-svg-icons";
-import { faCommentAlt, faComment } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCommentAlt,
+  faComment,
+  faListUl
+} from "@fortawesome/free-solid-svg-icons";
 import { WidthLimiter, List, Navigation } from "../../commons";
 
 class Menu extends Component {
@@ -46,12 +49,22 @@ class Menu extends Component {
                 오픈소스 Github 저장소
               </List.Item>
             </a>
+            <Link to="/list">
+              <List.Item>
+                <FontAwesomeIcon
+                  icon={faListUl}
+                  style={{ marginRight: "10px" }}
+                  color="#495057"
+                />
+                모든 식당보기
+              </List.Item>
+            </Link>
             <Link to="/suggest">
               <List.Item>
                 <FontAwesomeIcon
                   icon={faCommentAlt}
                   style={{ marginRight: "10px" }}
-                  color="#212529"
+                  color="#495057"
                 />
                 문의하기
               </List.Item>
