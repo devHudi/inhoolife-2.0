@@ -27,7 +27,7 @@ class CardListContainer extends Component {
           const cardData = [];
 
           let data = result.data.restaurantsByTags;
-          if (data.length > 10) data = data.slice(0, 10);
+          if (data.length > 20) data = data.slice(0, 20);
 
           data.map(restaurant =>
             cardData.push({
