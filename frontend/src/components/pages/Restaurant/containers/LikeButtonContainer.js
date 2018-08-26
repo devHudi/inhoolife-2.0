@@ -57,7 +57,7 @@ class LikeButtonContainer extends Component {
       client.mutate({ mutation }).then(result => {
         this.setState({
           isLiked: true,
-          likes: ++this.state.likes
+          likes: this.state.likes + 1
         });
       });
     });
@@ -71,7 +71,7 @@ class LikeButtonContainer extends Component {
       client.mutate({ mutation }).then(result => {
         this.setState({
           isLiked: false,
-          likes: --this.state.likes
+          likes: this.state.likes - 1
         });
       });
     });
@@ -97,10 +97,6 @@ class LikeButtonContainer extends Component {
   };
 
   componentDidMount() {
-    const { restaurantId } = this.props;
-    const token = localStorage.jwt;
-    let id = null;
-
     this.verifyToken().then(id => {
       this.renderLike(id);
     });
@@ -119,8 +115,6 @@ class LikeButtonContainer extends Component {
       </Fragment>
     );
   }
-
-  //TODO: 좋아한 식당 리스트를 들어가고, 다시 해당 식당을 클릭해 들어가면 좋아요 클릭여부와 숫자가 표시되지 않음
 }
 
 export default LikeButtonContainer;
