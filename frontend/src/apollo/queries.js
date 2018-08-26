@@ -1,22 +1,10 @@
 import gql from "graphql-tag";
 
-export const ALL_DETAIL_RESTAURANTS = gql`
+export const RESTAURANT_LIST = gql`
   query {
     restaurants {
       id
       name
-      address
-      menu {
-        name
-        price
-      }
-      likes
-      comments {
-        user_id
-        nickname
-        body
-      }
-      tags
     }
   }
 `;
@@ -30,7 +18,7 @@ export const RESTAURANTS_WITH_TAGS = tags => {
 
   return gql`
     query {
-      restaurants(tags: ${tagsString}) {
+      restaurantsByTags(tags: ${tagsString}) {
         id
         name
         tags
@@ -112,6 +100,7 @@ export const RESTAURANT_LIKE = (id, restaurant_id) => gql`
       likes
     }
     user(id: "${id}") {
+      id
       like_restaurants
     }
   }
@@ -198,6 +187,14 @@ export const REMOVE_LIKE_RESTAURANT = (id, restaurant_id) => gql`
     removeLikeRestaurant(
       id: "${id}",
       restaurant_id: "${restaurant_id}"
+    )
+  }
+`;
+
+export const SUGGEST = text => gql`
+  mutation {
+    suggest(
+      text: "${text}"
     )
   }
 `;
