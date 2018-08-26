@@ -14,7 +14,6 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
-    //TODO: Page 는 컴포넌트이므로 스테이트는 나중에 없애야함
     this.state = {
       selectedTags: [],
       isSpinnerOpened: false,
@@ -93,58 +92,44 @@ class Home extends Component {
     return (
       <Fragment>
         <Navigation active="home" />
-        <HomeWrapper scrollable={!isCardListOpened && !isSpinnerOpened}>
-          <CardListContainer
-            tags={this.state.selectedTags}
-            blur={isDetailRestaurantCardOpened}
-            onCardClick={this.handleOpenDetail}
-            onCloseClick={this.handleCloseCardList}
-            isOpened={isCardListOpened}
-          />
-          <Spinner
-            isOpened={isSpinnerOpened}
-            text="음식점을 고르고 있습니다!"
-          />
-          <Header>
-            <DimmerWrapper>
-              <WidthLimiter>
-                <LogoImage src={logo} />
-                <Slogan> 오늘 점심은 제가 정해드리죠 </Slogan>
-                <RoulleteButton onClick={this.handleRoulletButtonClick}>
-                  음식점 고르기
-                </RoulleteButton>
-              </WidthLimiter>
-            </DimmerWrapper>
-          </Header>
-          <TagSelectorWrapper>
+        <CardListContainer
+          tags={this.state.selectedTags}
+          blur={isDetailRestaurantCardOpened}
+          onCardClick={this.handleOpenDetail}
+          onCloseClick={this.handleCloseCardList}
+          isOpened={isCardListOpened}
+        />
+        <Spinner isOpened={isSpinnerOpened} text="음식점을 고르고 있습니다!" />
+        <Header>
+          <DimmerWrapper>
             <WidthLimiter>
-              <TagGroupContainer
-                title="대분류"
-                type="major"
-                onClick={this.handleTagClick}
-              />
-
-              <TagGroupContainer
-                title="소분류"
-                type="minor"
-                onClick={this.handleTagClick}
-              />
+              <LogoImage src={logo} />
+              <Slogan> 오늘 점심은 제가 정해드리죠 </Slogan>
+              <RoulleteButton onClick={this.handleRoulletButtonClick}>
+                음식점 고르기
+              </RoulleteButton>
             </WidthLimiter>
-          </TagSelectorWrapper>
-        </HomeWrapper>
+          </DimmerWrapper>
+        </Header>
+        <TagSelectorWrapper>
+          <WidthLimiter>
+            <TagGroupContainer
+              title="대분류"
+              type="major"
+              onClick={this.handleTagClick}
+            />
+
+            <TagGroupContainer
+              title="소분류"
+              type="minor"
+              onClick={this.handleTagClick}
+            />
+          </WidthLimiter>
+        </TagSelectorWrapper>
       </Fragment>
     );
   }
 }
-
-const HomeWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: ${props => (props.scrollable ? "block" : "hidden")};
-`;
 
 const Header = styled.header`
   text-align: center;
@@ -159,9 +144,18 @@ const RoulleteButton = styled.button`
   padding: 10px;
   width: 320px;
   border: 2px solid #ffffff;
+  letter-spacing: 1px;
   background-color: rgba(255, 255, 255, 0.1);
   color: #ffffff;
   font-size: 15pt;
+  cursor: pointer;
+  transition: 0.3s background-color, 0.3s letter-spacing, 0.3s color;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
+    letter-spacing: 10px;
+    color: #000000;
+  }
 `;
 
 const LogoImage = styled.img`
