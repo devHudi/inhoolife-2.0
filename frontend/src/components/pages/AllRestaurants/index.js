@@ -9,7 +9,7 @@ class AllRestaurants extends Component {
         <WidthLimiter noPadding>
           <ListContainer />
         </WidthLimiter>
-        <Navigation active="like" />
+        <Navigation active="menu" />
       </Fragment>
     );
   }
