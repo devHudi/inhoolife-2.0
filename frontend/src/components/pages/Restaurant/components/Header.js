@@ -1,39 +1,48 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as faOutlineHeart } from "@fortawesome/free-regular-svg-icons";
-import { Parallax } from "react-parallax";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { DimmerWrapper, WidthLimiter } from "../../../commons";
 import { LikeButtonContainer } from "../containers";
 
-const Header = ({ image, tags, title, restaurantId }) => {
-  return (
-    <HeaderWrapper>
-      <Parallax blur={{ min: -15, max: 15 }} strength={200} bgImage={image}>
-        <DimmerWrapper opacity={0.4} height="280px">
-          <WidthLimiter noPadding>
-            <Link to="/">
-              <BackButton>
+class Header extends Component {
+  static contextTypes = {
+    router: () => true
+  };
+
+  render() {
+    const { image, tags, title, restaurantId } = this.props;
+    return (
+      <HeaderWrapper>
+        <Background image={image}>
+          <DimmerWrapper opacity={0.4} height="280px">
+            <WidthLimiter noPadding>
+              <BackButton onClick={this.context.router.history.goBack}>
                 <FontAwesomeIcon icon={faChevronLeft} color="#ffffff" />{" "}
                 뒤로가기
               </BackButton>
-            </Link>
 
-            <Tags> {tags.map(tag => `#${tag} `)} </Tags>
-            <Title> {title} </Title>
+              <Tags> {tags.map(tag => `#${tag} `)} </Tags>
+              <Title> {title} </Title>
 
-            <LikeButtonContainer restaurantId={restaurantId} />
-          </WidthLimiter>
-        </DimmerWrapper>
-      </Parallax>
-    </HeaderWrapper>
-  );
-};
+              <LikeButtonContainer restaurantId={restaurantId} />
+            </WidthLimiter>
+          </DimmerWrapper>
+        </Background>
+      </HeaderWrapper>
+    );
+  }
+}
 
 const HeaderWrapper = styled.header`
   height: 280px;
+  background-size: cover;
+  background-position: center;
+`;
+
+const Background = styled.div`
+  background-image: url(${props => props.image});
   background-size: cover;
   background-position: center;
 `;
@@ -65,22 +74,6 @@ const BackButton = styled.button`
   font-size: 14pt;
   color: #ffffff;
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
-`;
-
-const LikeButtonWrapper = styled.div`
-  margin-top: 60px;
-  padding: 0 10px;
-  width: 100%;
-  text-align: right;
-`;
-
-const LikeButton = styled.button`
-  padding: 5px 10px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border: none;
-  border-radius: 100px;
-  font-size: 13pt;
-  color: #ffffff;
 `;
 
 export default Header;
