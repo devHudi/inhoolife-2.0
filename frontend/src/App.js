@@ -11,7 +11,9 @@ import {
   Login,
   Register,
   Like,
-  Menu
+  Menu,
+  Suggest,
+  AllRestaurants
 } from "./components/pages";
 import { NotFound } from "./components/commons";
 
@@ -51,6 +53,8 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/like" component={Like} />
               <Route exact path="/menu" component={Menu} />
+              <Route exact path="/suggest" component={Suggest} />
+              <Route exact path="/list" component={AllRestaurants} />
               <Route path="*" component={NotFound} />
             </Switch>
           </Fragment>
