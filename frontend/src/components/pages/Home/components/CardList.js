@@ -6,9 +6,6 @@ import preventHorizontalScrolling from "../../../../lib/preventHorizontalScrolli
 import { WidthLimiter, CloseButton } from "../../../commons";
 import { Card } from "../components";
 
-//TODO: PC 에서 슬라이드 안되는 오류
-//TODO: 카드가 하나만 있으면 출력되지 않는 오류
-
 const HOST = process.env.REACT_APP_BACKEND_HOST;
 
 class CardList extends Component {
@@ -45,23 +42,13 @@ class CardList extends Component {
     }
   }
 
-  handleClick = e => {
-    if (this.state.isDragging) {
-      e.preventDefault();
-    }
-  };
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state.isDragging === nextState.isDragging;
-  }
-
   render() {
     const settings = {
       dots: false,
-      arrows: false,
+      arrows: true,
       infinite: true,
       centerMode: true,
-      adaptiveHeight: true,
+      adaptiveHeight: false,
       draggable: true,
       beforeChange: () => this.setState({ isDragging: true }),
       afterChange: () => this.setState({ isDragging: false })
@@ -88,7 +75,10 @@ class CardList extends Component {
             좌우로 넘겨서 더 많은 식당을 보세요
           </CardListInfoText>
 
-          <Slider {...settings}>
+          <Slider
+            className={data.length === 1 ? "single-item" : ""}
+            {...settings}
+          >
             {data.map((card, i) => {
               return (
                 <Link
@@ -115,8 +105,6 @@ class CardList extends Component {
   }
 }
 
-//TODO: 하나만 카드리스트에 출력되면 아예 뜨지 않는 오류 해결
-
 const CardListWrapper = styled.div`
   position: fixed;
   top: ${props => (props.hideToBottom ? "100%" : "0px")};
@@ -127,6 +115,9 @@ const CardListWrapper = styled.div`
   overflow: hidden;
   z-index: 1001;
   opacity: ${props => (props.isOpened ? "1" : "0")};
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: 0.6s -webkit-filter, 0.6s opacity;
 
   .slick-slide {
@@ -135,14 +126,18 @@ const CardListWrapper = styled.div`
     transition: 0.3s opacity, 0.3s transform;
   }
 
+  .single-item .slick-slide {
+    opacity: 1;
+    transform: scale(0.95);
+  }
+
   .slick-slide.slick-active {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(0.95);
   }
 `;
 
 const CardListTags = styled.h1`
-  margin-top: 60px;
   font-size: 25pt;
   color: #ffffff;
   text-align: center;

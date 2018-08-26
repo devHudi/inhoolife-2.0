@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import client from "../../../../apollo/client";
-import {
-  ALL_DETAIL_RESTAURANTS,
-  RESTAURANTS_WITH_TAGS
-} from "../../../../apollo/queries";
+import { RESTAURANTS_WITH_TAGS } from "../../../../apollo/queries";
 import { CardList } from "../components";
 
 class CardListContainer extends Component {
@@ -18,30 +15,28 @@ class CardListContainer extends Component {
   componentWillReceiveProps(nextProps) {
     const { isOpened, tags } = nextProps;
 
-    let query = "";
-    if (tags.length > 0) query = RESTAURANTS_WITH_TAGS(tags);
-    else query = ALL_DETAIL_RESTAURANTS;
+    const query = RESTAURANTS_WITH_TAGS(tags);
 
     if (isOpened) {
       client
         .query({
-          query
+          query,
+          fetchPolicy: "network-only"
         })
         .then(result => {
           const cardData = [];
 
-          result.data.restaurants.map(restaurant => {
+          let data = result.data.restaurantsByTags;
+          if (data.length > 10) data = data.slice(0, 10);
+
+          data.map(restaurant =>
             cardData.push({
               id: restaurant.id,
               title: restaurant.name,
               tags: restaurant.tags,
-              images: [
-                "http://img.daily.co.kr/@files/www.daily.co.kr/content/food/2017/20170901/3b03901da9770e97ae3180a93c37bd82.png",
-                "https://s3-ap-northeast-1.amazonaws.com/tahoe-dev/places/1466654/menus/1466654_60001_1459388413343.jpg"
-              ],
               like: restaurant.likes.length
-            });
-          });
+            })
+          );
 
           this.setState({
             cardData

@@ -41,17 +41,22 @@ const GradientDimmer = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  position: absolute;
-  bottom: 15px;
+  margin-top: 125px;
 `;
 
 const Tags = styled.div`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   padding-top: 80px;
   font-size: 13pt;
   color: #ffffff;
 `;
 
 const Title = styled.div`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   font-size: 25pt;
   font-weight: bold;
   color: #ffffff;
