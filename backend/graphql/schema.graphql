@@ -41,6 +41,7 @@ type User {
 
 type Query {
   restaurants(tags: [String]): [Restaurant]
+  restaurantsByTags(tags: [String]): [Restaurant]
   restaurant(id: String): Restaurant
   majorTags: [Tag]
   minorTags: [Tag]
@@ -77,4 +78,5 @@ type Mutation {
   localRegister(id: String!, nickname: String!, password: String!): User
   addLikeRestaurant(id: String!, restaurant_id: String!): [String]
   removeLikeRestaurant(id: String!, restaurant_id: String!): [String]
+  suggest(text: String!): String
 }
