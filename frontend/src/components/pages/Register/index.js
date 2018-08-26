@@ -4,8 +4,6 @@ import { WidthLimiter, Navigation } from "../../commons";
 import { RegisterFormContainer } from "./containers";
 import logo from "../../../img/black_logo.png";
 
-//TODO: 에러메세지가 없는데 추가해야함
-
 class Register extends Component {
   render() {
     return (
