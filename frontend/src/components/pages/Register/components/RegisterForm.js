@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Redirect } from "react-router-dom";
 import { Input, Button } from "../../../commons";
+import { ErrorBox } from "../components";
 
 const RegisterForm = ({
   onChangeid,
@@ -12,6 +13,7 @@ const RegisterForm = ({
 }) => {
   return (
     <Fragment>
+      {error ? <ErrorBox message={error} /> : null}
       <Input big placeholder="아이디" onChange={onChangeid} />
       <Input big placeholder="닉네임" onChange={onChangeNickname} />
       <Input

@@ -43,17 +43,24 @@ class RegisterFormContainer extends Component {
         mutation
       })
       .then(result => {
-        localStorage.setItem("jwt", result.data.login);
+        alert("회원가입 되었습니다. 로그인을 해주세요.");
         this.setState({
           redirect: true
         });
       })
       .catch(error => {
         let message = null;
-        if (error.message === "GraphQL error: user dose not exists")
-          message = "존재하지 않는 사용자입니다.";
-        else if (error.message === "GraphQL error: invalid password")
-          message = "비밀번호가 올바르지 않습니다.";
+        if (error.message === "GraphQL error: id is necessary")
+          message = "아이디를 입력해주세요.";
+        else if (error.message === "GraphQL error: nickname is necessary")
+          message = "닉네임을 입력해주세요.";
+        else if (error.message === "GraphQL error: password is necessary")
+          message = "비밀번호를 입력해주세요.";
+        else if (error.message === "GraphQL error: user exists")
+          message = "이미 존재하는 유저입니다.";
+        else if (error.message === "GraphQL error: id validation error")
+          message =
+            "아이디 형식이 맞지 않습니다. 영문, 숫자, 언더바만을 이용하여 구성해주세요.";
 
         this.setState({
           error: message
