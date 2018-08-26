@@ -38,8 +38,6 @@ injectGlobal`
   }
 `;
 
-//TODO: Prop-type 적용
-
 class App extends Component {
   render() {
     return (
