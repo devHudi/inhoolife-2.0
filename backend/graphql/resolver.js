@@ -3,6 +3,7 @@ import request from "request";
 import Restaurant from "../models/Restaurant";
 import Tag from "../models/Tag";
 import User from "../models/User";
+import Suggest from "../models/Suggest";
 import { verifyToken } from "../lib/token";
 
 function downloadImage(url, filename) {
@@ -19,10 +20,8 @@ function downloadImage(url, filename) {
 
 const resolvers = {
   Query: {
-    restaurants: (_, { tags }) => {
-      if (tags) return Restaurant.findByTags(tags);
-      else return Restaurant.find();
-    },
+    restaurants: () => Restaurant.find({}),
+    restaurantsByTags: (_, { tags }) => Restaurant.findByTags(tags),
     restaurant: (_, { id }) => Restaurant.findById(id),
     majorTags: () => Tag.findByType("major"),
     minorTags: () => Tag.findByType("minor"),
@@ -52,9 +51,11 @@ const resolvers = {
       return new Promise((resolve, reject) => {
         Restaurant.add(name, address, menu, tags).then(restaurant => {
           const imageFilename = restaurant._id;
-          downloadImage(url, imageFilename).then(() => {
-            resolve(restaurant);
-          });
+          if (url) {
+            downloadImage(url, imageFilename).then(() => {
+              resolve(restaurant);
+            });
+          }
         });
       });
     },
@@ -96,8 +97,14 @@ const resolvers = {
     localRegister: (_, { id, nickname, password }) => {
       return new Promise((resolve, reject) => {
         User.findOneById(id).then(user => {
+          const reg = /^[a-zA-Z0-9_]+$/; // or /^\w+$/ as mentione
+
           if (user) reject("user exists");
-          resolve(User.localRegister(id, nickname, password));
+          else if (id === "") reject("id is necessary");
+          else if (nickname === "") reject("nickname is necessary");
+          else if (password === "") reject("password is necessary");
+          else if (!/^[a-z0-9_]+$/i.test(id)) reject("id validation error");
+          else resolve(User.localRegister(id, nickname, password));
         });
       });
     },
@@ -134,7 +141,8 @@ const resolvers = {
           }
         });
       });
-    }
+    },
+    suggest: (_, { text }) => Suggest.add(text)
   }
 };
 
