@@ -33,11 +33,7 @@ const GradientDimmer = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 15px;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.3),
-    rgba(0, 0, 0, 0.8)
-  );
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
 `;
 
 const TextWrapper = styled.div`
