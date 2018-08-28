@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Helmet } from "react-helmet";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { injectGlobal } from "styled-components";
 import "slick-carousel/slick/slick.css";
@@ -44,6 +45,10 @@ class App extends Component {
       <ApolloProvider client={client}>
         <BrowserRouter>
           <Fragment>
+            <Helmet>
+              <meta property="og:title" content="인후라이프 2.0" />
+              <title>인후라이프 2.0</title>
+            </Helmet>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/restaurant/:id" component={Restaurant} />

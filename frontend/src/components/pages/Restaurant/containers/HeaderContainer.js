@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Helmet } from "react-helmet";
 import { Query } from "react-apollo";
 import { RESTAURANT_HEADER } from "../../../../apollo/queries";
 import { Header, HeaderSkeleton } from "../components";
@@ -18,12 +19,21 @@ class HeaderContainer extends Component {
             const { id, tags, name } = data.restaurant;
 
             return (
-              <Header
-                restaurantId={id}
-                tags={tags}
-                title={name}
-                image={`http://${HOST}:4001/images/${id}.jpg`}
-              />
+              <Fragment>
+                <Helmet>
+                  <meta
+                    property="og:title"
+                    content={`${name} - 인후라이프 2.0`}
+                  />
+                  <title>{`${name} - 인후라이프 2.0`}</title>
+                </Helmet>
+                <Header
+                  restaurantId={id}
+                  tags={tags}
+                  title={name}
+                  image={`http://${HOST}:4001/images/${id}.jpg`}
+                />
+              </Fragment>
             );
           }}
         </Query>
