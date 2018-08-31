@@ -2,12 +2,22 @@ import React from "react";
 import styled from "styled-components";
 import { Tag } from "../components";
 
-const TagGroup = ({ title, tags, onClick }) => {
+const TagGroup = ({ title, tags, searchbar, onClick, onChange }) => {
   return (
     <TagGroupWrapper>
       <Title> # {title} </Title>
+      {searchbar ? (
+        <Input placeholder="태그를 검색하세요 (예: 치킨)" onChange={onChange} />
+      ) : (
+        ""
+      )}
       {tags.map((tag, i) => (
-        <Tag isSelected={false} name={tag.name} key={i} onClick={onClick} />
+        <Tag
+          isFiltered={tag.isFiltered}
+          name={tag.name}
+          key={i}
+          onClick={onClick}
+        />
       ))}
     </TagGroupWrapper>
   );
@@ -30,6 +40,15 @@ const TagGroupWrapper = styled.div`
   &:last-child {
     border-bottom: none;
   }
+`;
+
+const Input = styled.input`
+  margin: 0 1% 18px 1%;
+  padding: 10px 15px;
+  width: 100%;
+  border: 2px solid #e9ecef;
+  background-color: #ffffff;
+  font-size: 11pt;
 `;
 
 export default TagGroup;
