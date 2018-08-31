@@ -7,6 +7,7 @@ import {
   Navigation
 } from "../../commons";
 import { TagGroupContainer, CardListContainer } from "./containers";
+import { Guide } from "./components";
 import logo from "../../../img/logo.png";
 import event from "../../../img/event.png";
 import mainHeaderBackground from "../../../img/main_header_background.jpg";
@@ -93,6 +94,7 @@ class Home extends Component {
     return (
       <Fragment>
         <Navigation active="home" />
+        <Guide />
         <CardListContainer
           tags={this.state.selectedTags}
           blur={isDetailRestaurantCardOpened}
@@ -119,10 +121,6 @@ class Home extends Component {
                 <img src={event} />
               </a>
             </EventWrapper>
-            <GuideText>
-              원하는 식당 <b>카테고리를 선택</b> 후 상단의
-              <b>음식점 고르기 버튼</b>을 눌러 룰렛을 돌리세요.
-            </GuideText>
             <TagGroupContainer
               title="대분류"
               type="major"
@@ -183,16 +181,6 @@ const Slogan = styled.p`
 const TagSelectorWrapper = styled.div`
   margin: 30px 0;
   padding-bottom: 62.3333px;
-`;
-
-const GuideText = styled.div`
-  margin: 10px auto 0 auto;
-  padding: 15px 20px;
-  width: 320px;
-  background-color: #e9ecef;
-  font-size: 11pt;
-  text-align: center;
-  line-height: 130%;
 `;
 
 const EventWrapper = styled.div`
