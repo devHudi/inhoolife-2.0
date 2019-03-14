@@ -9,7 +9,6 @@ import {
 import { TagGroupContainer, CardListContainer } from "./containers";
 import { Guide } from "./components";
 import logo from "../../../img/logo.png";
-import event from "../../../img/event.png";
 import mainHeaderBackground from "../../../img/main_header_background.jpg";
 
 class Home extends Component {
@@ -116,11 +115,6 @@ class Home extends Component {
         </Header>
         <TagSelectorWrapper>
           <WidthLimiter>
-            <EventWrapper>
-              <a href="/">
-                <img src={event} />
-              </a>
-            </EventWrapper>
             <TagGroupContainer
               title="대분류"
               type="major"
